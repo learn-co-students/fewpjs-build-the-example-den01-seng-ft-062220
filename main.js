@@ -4,6 +4,27 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
+let heartStates = {
+  "♡": "♥",
+  "♥": "♡"
+};
+
+const errorModal = document.querySelector("#modal");
+errorModal.classList.add("hidden");
+const likeButtons = document.querySelectorAll(".like");
+likeButtons.forEach(likeButton => {
+  likeButton.addEventListener("click", function(event){
+    let targetHeart = event.target;
+    mimicServerCall(url="http://mimicServer.example.com", config={})
+      .then(function(serverMessage){
+        targetHeart.textContent = heartStates[targetHeart.textContent];
+        targetHeart.classList.toggle("activated-heart");
+      })
+      .catch(function(error){
+        errorModal.classList.toggle("hidden");
+      })
+  });
+})
 
 
 
