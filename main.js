@@ -3,8 +3,23 @@ const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
+const heartTypes = {"♡": "♥", "♥": "♡"}
+const likeHearts = document.querySelectorAll(".like");
+const heartError = document.querySelector("#modal").classList.add("hidden");
 
-
+likeHearts.forEach(likeHeart => {
+  likeHeart.addEventListener("click", function(e){
+    const heart = e.target;
+    mimicServerCall(url="http://mimicServer.example.com", config={})
+      .then(function(heartLike){
+        heart.innerText = heartTypes[heart.innerText];
+        heart.classList.toggle("activated-heart");
+      })
+      .catch(function(err){
+        heartError.classList.toggle("hidden");
+      })
+  });
+})
 
 
 //------------------------------------------------------------------------------
